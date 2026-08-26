@@ -4,7 +4,7 @@ const vocabData = [
     { es: "La línea", de: "Die Linie, die Zeile" },
     { es: "El recuerdo", de: "Die Erinnerung" },
     { es: "Limitar con algo", de: "(an)grenzen an" },
-    { es: "Parecerle (+Adj) a alguien", de: "Jdm. (...) erscheinen" },
+    { es: "Parecerle a alguien", de: "Jdm erscheinen" },
     { es: "Pensar (ie) en algo", de: "An etwas denken" },
     { es: "La política", de: "Die Politik" },
     { es: "Relacionar algo/alguien con algo", de: "Etwas / jdn mit etwas verbinden" },
