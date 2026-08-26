@@ -1,0 +1,254 @@
+:root {
+    --bg-color: #1a1a2e;
+    --text-color: #ffffff;
+    --primary-color: #e94560;
+    --secondary-color: #0f3460;
+    --correct-color: #4caf50;
+    --wrong-color: #f44336;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#site-lang-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 5px;
+}
+
+.site-lang-btn {
+    background-color: transparent;
+    color: #aaa;
+    border: 2px solid #555;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.site-lang-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+#game-container {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.hidden { display: none !important; }
+
+/* Start Screen */
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.2);
+    animation: pulse 1s infinite alternate;
+    margin-bottom: 5px;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    transition: transform 0.1s, background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.btn:active { transform: scale(0.95); }
+.btn:hover { background-color: #ff5c77; }
+
+.settings-group {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+.settings-title { font-weight: bold; margin-bottom: 10px; color: #aaa; }
+
+.mode-select {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mode-btn {
+    background-color: var(--secondary-color);
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+
+.mode-btn.active {
+    background-color: var(--primary-color);
+    border: 2px solid white;
+}
+
+/* Game Screen */
+#top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#stats {
+    display: flex;
+    gap: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#combo { color: #ffeb3b; }
+#lives { color: #f44336; }
+
+#timer-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#timer-bar {
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.1s linear;
+}
+
+#word-display {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 20px 0 40px 0;
+    min-height: 80px;
+    word-break: break-word;
+}
+
+#options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.option-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: 2px solid transparent;
+    padding: 20px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 0 4px 0 #0a2545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    word-break: break-word;
+}
+
+.option-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #0a2545; }
+.option-btn.correct { background-color: var(--correct-color) !important; box-shadow: 0 4px 0 #388e3c !important; }
+.option-btn.wrong { background-color: var(--wrong-color) !important; box-shadow: 0 4px 0 #d32f2f !important; }
+
+/* Typing Mode */
+#typing-container { margin-top: 20px; }
+#typing-input {
+    width: 80%;
+    padding: 15px;
+    font-size: 1.5rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    text-align: center;
+    outline: none;
+}
+#typing-input:focus { border-color: var(--primary-color); }
+#typing-hint { margin-top: 10px; color: #aaa; font-size: 0.9rem; }
+#typing-answer-reveal {
+    font-size: 1.5rem; color: var(--correct-color); font-weight: bold; margin-top: 15px;
+}
+
+/* Effects */
+.shake { animation: shake 0.3s; }
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.flash-green { animation: flashG 0.3s; }
+@keyframes flashG { 0% { background-color: rgba(76, 175, 80, 0.5); } 100% { background-color: var(--bg-color); } }
+
+.flash-red { animation: flashR 0.3s; }
+@keyframes flashR { 0% { background-color: rgba(244, 67, 54, 0.5); } 100% { background-color: var(--bg-color); } }
+
+/* End Screen */
+#mistakes-list, #local-saved-list {
+    text-align: left;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.mistake-item { border-bottom: 1px solid #444; padding: 5px 0; }
+.es { color: #4caf50; font-weight: bold; }
+.de { color: #2196f3; font-weight: bold; }
+
+/* Mobile Optimization */
+@media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    #word-display { font-size: 2rem; margin: 15px 0 25px 0; min-height: 60px; }
+    #options-grid { grid-template-columns: 1fr; gap: 10px; }
+    .option-btn { padding: 15px; font-size: 1.1rem; min-height: 60px; }
+    #stats { font-size: 1.1rem; gap: 10px; }
+    .btn { padding: 10px 15px; font-size: 1rem; margin: 3px; }
+    #typing-input { width: 95%; font-size: 1.2rem; padding: 10px; }
+    #game-container { padding: 10px; margin-top: 40px; }
+    #site-lang-toggle { top: 10px; right: 10px; }
+    .settings-group { padding: 10px; margin-bottom: 10px; }
+}

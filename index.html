@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordRush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <!-- START SCREEN -->
+        <div id="start-screen">
+            <h1>🔥 WordRush 🔥</h1>
+            <p>Ultra-schnelles Lernspiel</p>
+            
+            <div class="settings-group">
+                <div class="settings-title">Sprachrichtungs-Modus</div>
+                <div class="mode-select">
+                    <button class="btn mode-btn active" data-group="lang" data-val="es-de">🇪🇸 ➔ 🇩🇪</button>
+                    <button class="btn mode-btn" data-group="lang" data-val="de-es">🇩🇪 ➔ 🇪🇸</button>
+                    <button class="btn mode-btn" data-group="lang" data-val="mix">🔀 Mix</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">Spielmodus</div>
+                <div class="mode-select">
+                    <button class="btn mode-btn active" data-group="type" data-val="choice">🔘 Multiple Choice</button>
+                    <button class="btn mode-btn" data-group="type" data-val="typing">⌨️ Eingabe (Tippen)</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-title">Leben-Einstellungen</div>
+                <div class="mode-select">
+                    <button class="btn mode-btn active" data-group="lives" data-val="survival">❤️ Survival (5 Leben)</button>
+                    <button class="btn mode-btn" data-group="lives" data-val="infinite">♾️ Endlosmodus</button>
+                </div>
+            </div>
+
+            <button class="btn" style="font-size: 1.5rem; padding: 15px 40px; margin-top: 10px;" onclick="startGame()">🚀 Spiel starten 🚀</button>
+            <br>
+            <button class="btn" style="background-color: #607d8b; font-size: 1rem; margin-top: 15px;" onclick="showSavedMistakes()">📂 Fehlerliste anzeigen</button>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="hidden">
+            <div id="top-bar">
+                <div id="stats">
+                    <div>Punkte: <span id="score">0</span></div>
+                    <div id="combo">Combo x<span id="combo-multiplier">1</span></div>
+                    <div id="lives" class="hidden">❤️ <span id="lives-count">5</span></div>
+                </div>
+                <button class="btn" style="padding: 5px 15px; font-size: 0.9rem; background-color: #555;" onclick="endGame()">🛑 Beenden</button>
+            </div>
+            
+            <div id="timer-bar-container">
+                <div id="timer-bar"></div>
+            </div>
+            <div id="word-display">Palabra</div>
+            
+            <!-- Multiple Choice -->
+            <div id="options-grid" class="hidden">
+                <button class="option-btn" onclick="checkAnswerChoice(0)"></button>
+                <button class="option-btn" onclick="checkAnswerChoice(1)"></button>
+                <button class="option-btn" onclick="checkAnswerChoice(2)"></button>
+                <button class="option-btn" onclick="checkAnswerChoice(3)"></button>
+            </div>
+
+            <!-- Typing Input -->
+            <div id="typing-container" class="hidden">
+                <input type="text" id="typing-input" placeholder="Antwort eingeben..." autocomplete="off">
+                <div id="typing-hint">Artikel (der/die/das/el/la etc.) sind zwingend erforderlich! (Groß-/Kleinschreibung egal, Klammern weglassbar)</div>
+                <div id="typing-answer-reveal" class="hidden"></div>
+            </div>
+        </div>
+
+        <!-- END SCREEN -->
+        <div id="end-screen" class="hidden">
+            <h1>Spiel vorbei!</h1>
+            <h2>Endpunktzahl: <span id="final-score">0</span></h2>
+            
+            <div id="current-mistakes-section">
+                <p>Falsche Wörter in dieser Runde</p>
+                <div id="mistakes-list"></div>
+            </div>
+
+            <div class="mode-select" style="margin-top:20px;">
+                <button class="btn" onclick="location.reload()">🔄 Hauptmenü</button>
+                <button class="btn" onclick="startGame(true)">▶️ Direkt neu starten</button>
+                <button class="btn" style="background-color: #4caf50;" onclick="downloadMistakes()">💾 Fehlerliste herunterladen (.txt)</button>
+            </div>
+        </div>
+
+        <!-- SAVED MISTAKES SCREEN -->
+        <div id="saved-mistakes-screen" class="hidden">
+            <h1>Lokal gespeicherte Fehlerliste</h1>
+            <p>Gesammelte schwache Wörter.</p>
+            <div id="local-saved-list"></div>
+            <div class="mode-select">
+                <button class="btn" onclick="hideSavedMistakes()">🔙 Zurück</button>
+                <button class="btn" style="background-color: #4caf50;" onclick="downloadLocalMistakes()">💾 Herunterladen (.txt)</button>
+                <button class="btn" style="background-color: var(--wrong-color);" onclick="clearLocalMistakes()">🗑️ Verlauf löschen</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="snd-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <audio id="snd-wrong" src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3"></audio>
+
+    <script src="vocab.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
