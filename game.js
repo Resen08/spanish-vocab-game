@@ -131,6 +131,27 @@ function normalizeText(text) {
     let tokens = noBrackets.split(/[,/]/).map(t => t.trim()).filter(t => t.length > 0);
     variations = variations.concat(tokens);
     
+    // Remove common articles and trailing hyphens
+    let articles = ["der ", "die ", "das ", "el ", "la ", "los ", "las ", "un ", "una ", "unos ", "unas "];
+    let extraVariations = [];
+    variations.forEach(v => {
+        let cleanV = v;
+        if (cleanV.endsWith("-")) {
+            cleanV = cleanV.substring(0, cleanV.length - 1).trim();
+            extraVariations.push(cleanV);
+        }
+        articles.forEach(art => {
+            if (v.startsWith(art)) {
+                let withoutArt = v.substring(art.length).trim();
+                extraVariations.push(withoutArt);
+                if (withoutArt.endsWith("-")) {
+                    extraVariations.push(withoutArt.substring(0, withoutArt.length - 1).trim());
+                }
+            }
+        });
+    });
+    variations = variations.concat(extraVariations);
+    
     return variations;
 }
 
