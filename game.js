@@ -1,4 +1,4 @@
-let settings = { lang: 'es-de', type: 'choice', lives: 'survival' };
+let settings = { lang: 'es-de', type: 'choice', lives: 'survival', list: 'list1', timer: 'on' };
 
 let currentWordIndex;
 let correctOptionIndex;
@@ -36,6 +36,10 @@ function startGame(restart = false) {
     mistakes.clear();
     livesLeft = 5;
     isWaiting = false;
+
+    if (settings.list === 'list1') vocabData = vocabList1;
+    else if (settings.list === 'list2') vocabData = vocabList2;
+    else vocabData = [...vocabList1, ...vocabList2];
 
     document.getElementById('options-grid').classList.add('hidden');
     document.getElementById('typing-container').classList.add('hidden');
@@ -230,6 +234,14 @@ function handleWrong(clickedIdx = -1, isTyping = false) {
 }
 
 function startTimer() {
+    clearInterval(timerInterval);
+    
+    if (settings.timer === 'off') {
+        document.getElementById('timer-bar-container').classList.add('hidden');
+        return;
+    }
+    
+    document.getElementById('timer-bar-container').classList.remove('hidden');
     timeLeft = 100;
     document.getElementById('timer-bar').style.width = '100%';
     
